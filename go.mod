@@ -1,4 +1,4 @@
-module github.com/jfinlinson/dbx
+module github.com/JoeFinlinson/dbx
 
 go 1.21
 

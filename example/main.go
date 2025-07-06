@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/JoeFinlinson/dbx"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/jfinlinson/dbx"
 )
 
 // User represents a user in the database
