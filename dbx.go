@@ -117,6 +117,7 @@ func InsertStruct(ctx context.Context, db DB, table string, data any) error {
 // It uses db:"table.column" tags to map columns to struct fields.
 // The dest parameter must be a pointer to a slice of structs.
 func QueryStructs(ctx context.Context, db DB, sql string, dest any, args ...any) error {
+	fmt.Printf("[dbx] QueryStructs called with dest type: %T, value: %#v\n", dest, dest)
 	destValue := reflect.ValueOf(dest)
 	if dest == nil {
 		return fmt.Errorf("dest cannot be nil; must be a pointer to a slice of structs")
