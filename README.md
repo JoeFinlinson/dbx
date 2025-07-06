@@ -109,7 +109,7 @@ jsonData, err := dbx.QueryJSON(ctx, db, "SELECT * FROM users")
 ## Installation
 
 ```bash
-go get github.com/jfinlinson/dbx
+go get github.com/JoeFinlinson/dbx
 ```
 
 ## License
