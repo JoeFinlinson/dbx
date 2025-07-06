@@ -168,9 +168,11 @@ func QueryStructs(ctx context.Context, db DB, sql string, dest any, args ...any)
 			if colIndex < len(values) && fieldIndex >= 0 {
 				field := elem.Field(fieldIndex)
 				if field.CanSet() {
-					// Convert the value to the field type
 					val := reflect.ValueOf(values[colIndex])
-					if val.Type().ConvertibleTo(field.Type()) {
+					if !val.IsValid() || (val.Kind() == reflect.Ptr && val.IsNil()) {
+						// Set zero value for the field if DB value is NULL
+						field.Set(reflect.Zero(field.Type()))
+					} else if val.Type().ConvertibleTo(field.Type()) {
 						field.Set(val.Convert(field.Type()))
 					}
 				}
