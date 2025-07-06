@@ -118,19 +118,25 @@ func InsertStruct(ctx context.Context, db DB, table string, data any) error {
 // The dest parameter must be a pointer to a slice of structs.
 func QueryStructs(ctx context.Context, db DB, sql string, dest any, args ...any) error {
 	destValue := reflect.ValueOf(dest)
+	if dest == nil {
+		return fmt.Errorf("dest cannot be nil; must be a pointer to a slice of structs")
+	}
 	if destValue.Kind() != reflect.Pointer {
-		return fmt.Errorf("dest must be a pointer to a slice")
+		return fmt.Errorf("dest must be a pointer to a slice of structs, got %T", dest)
+	}
+	if destValue.IsNil() {
+		return fmt.Errorf("dest pointer is nil; must be a pointer to a slice of structs")
 	}
 
 	sliceValue := destValue.Elem()
 	if sliceValue.Kind() != reflect.Slice {
-		return fmt.Errorf("dest must be a pointer to a slice")
+		return fmt.Errorf("dest must be a pointer to a slice of structs, got pointer to %s", sliceValue.Kind())
 	}
 
 	// Get the element type of the slice
 	elemType := sliceValue.Type().Elem()
 	if elemType.Kind() != reflect.Struct {
-		return fmt.Errorf("slice elements must be structs")
+		return fmt.Errorf("slice elements must be structs, got %s", elemType.Kind())
 	}
 
 	// Execute the query
