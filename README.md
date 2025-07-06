@@ -1,5 +1,7 @@
 # dbx – SQL-first Data Access for Go
 
+> [2025-07-06] Module path fix: This commit is to force the Go proxy to fetch the correct module path after a case-sensitive update.
+
 A lightweight, opinionated data access layer for Go that keeps SQL front and center while eliminating boilerplate.
 
 ## Philosophy
